@@ -1,0 +1,498 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - hey there
+    - good morning
+    - good afternoon
+    - good evening
+    - hello there
+    - hi, is anyone there
+    - hiya
+    - morning
+    - hello, I need some help
+    - hi bot
+    - greetings
+    - hi there
+    - hello CareLine
+    - good day
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - see you later
+    - bye bye
+    - that's all, bye
+    - have a nice day
+    - I'm done, goodbye
+    - cheers, bye
+    - talk to you later
+    - that is everything, goodbye
+    - ok bye
+    - bye for now
+    - goodbye and thanks
+    - that's all for now
+    - I'm finished, bye
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - yes I do
+    - yes, that's right
+    - correct
+    - that's correct
+    - I do
+    - yes I have
+    - sure
+    - indeed
+    - yes please
+    - unfortunately yes
+    - ya
+    - yes I do have that
+    - yes, one of those
+    - yeah I think so
+    - that's right
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - no I don't
+    - not at all
+    - none of those
+    - no, none
+    - no thanks
+    - I don't
+    - not really
+    - never
+    - no I haven't
+    - nah
+    - none of them
+    - no nothing like that
+    - no I do not
+    - no, I haven't got any of those
+    - nothing like that
+    - no none of these
+
+- intent: thankyou
+  examples: |
+    - thanks
+    - thank you
+    - thank you very much
+    - thanks a lot
+    - cheers
+    - that's helpful, thanks
+    - great, thank you
+    - much appreciated
+    - thanks for your help
+    - perfect, thanks
+    - ok thank you
+    - thanks so much
+    - thank you, that helps
+    - many thanks
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot
+    - are you a human
+    - am I talking to a real person
+    - am I talking to a robot
+    - are you a doctor
+    - is this a real nurse
+    - who are you
+    - what are you
+    - are you an AI
+    - is this automated
+    - am I chatting with a machine
+    - are you a real person
+    - are you a chatbot
+    - is this a bot or a person
+    - are you human or machine
+    - am I speaking to a computer
+
+- intent: give_consent
+  examples: |
+    - I agree
+    - I consent
+    - yes I agree
+    - I give my consent
+    - I accept
+    - you have my consent
+    - I agree to that
+    - ok I agree
+    - yes you can use my information
+    - consent given
+    - I accept the terms
+    - fine, I consent
+    - I agree to the processing
+    - yes, I consent
+    - agreed
+    - I'm happy to agree
+    - you have my permission
+    - I give permission
+    - yes that's fine, I agree
+    - ok, I consent to that
+
+- intent: deny_consent
+  examples: |
+    - I do not agree
+    - I don't consent
+    - I do not consent
+    - I disagree
+    - I don't accept
+    - I refuse
+    - do not store my data
+    - I don't want my data stored
+    - I do not give consent
+    - no I don't agree to that
+    - I'd rather not share my data
+    - please don't process my information
+    - I don't agree
+    - no, I do not agree
+    - I won't give consent
+    - I decline
+    - I do not accept
+    - I don't give permission
+    - you may not use my data
+    - I withdraw my consent
+    - no consent
+    - I'm not agreeing to that
+
+- intent: report_symptom
+  examples: |
+    - I have a [sore throat](symptom)
+    - I've got a [headache](symptom)
+    - I have a bad [cough](symptom)
+    - my [back hurts](symptom:back pain)
+    - I have [back pain](symptom)
+    - I've had a [fever](symptom) since yesterday
+    - I feel [dizzy](symptom:dizziness)
+    - I have [stomach pain](symptom)
+    - I've been having [diarrhoea](symptom)
+    - I have [diarrhea](symptom:diarrhoea) and feel weak
+    - I keep [vomiting](symptom)
+    - I have an [earache](symptom)
+    - my [ear hurts](symptom:earache)
+    - I have a [rash](symptom) on my arm
+    - I've got a [runny nose](symptom)
+    - I think I have a [cold](symptom)
+    - I have a [migraine](symptom:headache)
+    - my [throat is sore](symptom:sore throat)
+    - I've been [coughing](symptom:cough) for days
+    - I have [nausea](symptom)
+    - I feel [sick](symptom:nausea) all the time
+    - I have [knee pain](symptom)
+    - my child has a [fever](symptom)
+    - I have a [high temperature](symptom:fever)
+    - I'm suffering from [stomach ache](symptom:stomach pain)
+    - I have a [toothache](symptom)
+    - there is [pain when I pee](symptom:urinary pain)
+    - I have [burning when urinating](symptom:urinary pain)
+    - I've got [joint pain](symptom)
+    - I have a [blocked nose](symptom:runny nose)
+    - I am not feeling well
+    - I feel unwell
+    - I want to check my symptoms
+    - can you check my symptoms
+    - I need a symptom check
+    - I'm ill
+    - something is wrong with me
+    - I need medical advice
+    - I have a health problem
+    - symptom checker please
+    - I've got really bad [back pain](symptom)
+    - my [stomach hurts](symptom:stomach pain)
+    - I woke up with a [sore throat](symptom)
+    - I've had a [headache](symptom) all day
+    - I have a [skin rash](symptom:rash)
+    - my [knee hurts](symptom:knee pain)
+    - I've been [throwing up](symptom:vomiting)
+    - I feel [nauseous](symptom:nausea)
+    - I've got [earache](symptom)
+    - I have a [cough](symptom) that won't go away
+    - my daughter has a [rash](symptom)
+    - I'm feeling [dizzy](symptom:dizziness) and tired
+    - I have [shoulder pain](symptom)
+    - I've got a [cold](symptom) and I feel rough
+    - I'd like some advice about my [headache](symptom)
+
+- intent: emergency
+  examples: |
+    - I have chest pain
+    - I have crushing chest pain
+    - my chest feels tight and it hurts
+    - I can't breathe
+    - I cannot breathe properly
+    - I am struggling to breathe
+    - he is not breathing
+    - she collapsed and is unconscious
+    - I think I'm having a heart attack
+    - I think I'm having a stroke
+    - my face is drooping and my arm is weak
+    - I can't move one side of my body
+    - I'm bleeding heavily and it won't stop
+    - there is a lot of blood and it will not stop
+    - my throat is swelling and I can't swallow
+    - I'm having a severe allergic reaction
+    - I took an overdose
+    - someone has swallowed too many pills
+    - he is having a seizure
+    - my lips are turning blue
+    - I have sudden severe chest pressure
+    - I am coughing up a lot of blood
+    - she fainted and won't wake up
+    - this is an emergency
+    - I need an ambulance
+    - I have severe chest pain
+    - my chest hurts badly and my arm is numb
+    - I can hardly breathe
+    - I'm having trouble breathing
+    - my husband has collapsed
+    - she is unconscious
+    - I think he's having a stroke
+    - his speech is slurred and his face has dropped
+    - I've cut myself and the bleeding won't stop
+    - my tongue and lips are swelling up
+    - I feel like I'm going to pass out and my chest is tight
+    - my baby is not breathing
+    - he's choking and can't breathe
+    - I've taken too many tablets
+    - call an ambulance
+
+- intent: inform
+  examples: |
+    - [7](severity)
+    - about a [5](severity)
+    - it's a [3](severity)
+    - maybe [8](severity) out of 10
+    - I'd say [6](severity)
+    - [10](severity)
+    - around [4](severity)
+    - [2](severity)
+    - a [9](severity)
+    - [2 days](duration)
+    - for [3 days](duration)
+    - since [yesterday](duration)
+    - about [a week](duration)
+    - [two weeks](duration)
+    - for [5 days](duration) now
+    - it started [this morning](duration)
+    - [a few days](duration)
+    - around [10 days](duration)
+    - [since last night](duration)
+    - almost [a month](duration)
+    - [4 days](duration)
+    - for [one week](duration)
+    - [3 days](duration) now
+    - about [two days](duration)
+    - [a couple of days](duration)
+    - for [a few weeks](duration)
+    - it has been [6 days](duration)
+    - [three weeks](duration)
+    - roughly [8](severity)
+    - I would say [4](severity)
+    - [5](severity) out of 10
+    - [1](severity)
+
+- intent: book_appointment
+  examples: |
+    - I want to book an appointment
+    - book an appointment
+    - can I see a doctor
+    - I need to see a GP
+    - I'd like to make an appointment
+    - can I get an appointment
+    - schedule an appointment please
+    - I need an appointment with a doctor
+    - book me in
+    - when is the next available appointment
+    - can you arrange an appointment for me
+    - show me available times
+    - any appointments today
+    - I want to schedule a visit
+    - make a booking
+    - I need a doctor's appointment
+    - can I book a slot
+    - book a GP appointment
+    - I'd like to book a visit
+    - get me an appointment for tomorrow
+    - is there a free appointment this week
+    - I want to see a doctor soon
+    - please book me an appointment
+    - set up an appointment
+    - appointment booking
+    - I need to book in with the GP
+    - can I come in and see someone
+
+- intent: select_slot
+  examples: |
+    - I'll take slot [3](slot_id)
+    - slot [5](slot_id) please
+    - book slot [2](slot_id)
+    - option [1](slot_id)
+    - I choose slot [4](slot_id)
+    - give me slot [7](slot_id)
+
+- intent: cancel_appointment
+  examples: |
+    - I want to cancel my appointment
+    - cancel my appointment
+    - please cancel my booking
+    - I can't make my appointment
+    - I need to cancel
+    - I need to reschedule my appointment
+    - can I change my appointment
+    - I want to move my appointment to another day
+    - reschedule my booking
+    - I won't be able to come to my appointment
+    - cancel the booking
+    - I'd like to change my appointment time
+    - remove my appointment
+    - I have to cancel my appointment
+    - please cancel my appointment for tomorrow
+    - I no longer need my appointment
+    - call off my appointment
+    - can you cancel my booking
+    - I need to change my booking
+    - move my appointment please
+    - I can't attend my appointment
+    - delete my appointment
+
+- intent: inform_booking_ref
+  examples: |
+    - [APT-4F7K2Q](booking_ref)
+    - my reference is [APT-9ZX31B](booking_ref)
+    - it's [APT-A1B2C3](booking_ref)
+    - the booking reference is [APT-77QW0P](booking_ref)
+    - [APT-K3M8T5](booking_ref) is my booking
+    - reference [APT-0H2J6L](booking_ref)
+    - booking ref [APT-XY12Z9](booking_ref)
+    - [apt-4f7k2q](booking_ref)
+
+- intent: request_human
+  examples: |
+    - I want to speak to a nurse
+    - can I talk to a human
+    - connect me to a person
+    - I want to talk to someone
+    - let me speak to a real person
+    - transfer me to an agent
+    - I need to speak to reception
+    - can a nurse call me
+    - human please
+    - I'd rather talk to a person
+    - put me through to the clinic
+    - I want a real nurse
+    - speak to an operator
+    - get me a human
+    - I need to talk to a nurse
+    - can I speak with a member of staff
+    - I want to talk to a doctor directly
+    - please connect me to a nurse
+    - let me talk to reception
+
+- intent: ask_privacy
+  examples: |
+    - how is my data used
+    - what do you do with my data
+    - is this confidential
+    - who can see what I tell you
+    - is my information private
+    - do you store my data
+    - how do you protect my information
+    - is this GDPR compliant
+    - can I delete my data
+    - is this conversation recorded
+    - what happens to my health information
+    - will my data be shared
+    - what is your privacy policy
+    - who has access to my records
+    - are my answers kept confidential
+    - where is my data stored
+    - how long do you keep my data
+    - is my data safe with you
+    - do you share my details with anyone
+    - tell me about data protection
+    - what do you do with the information I give
+    - is my chat private
+
+- intent: stop
+  examples: |
+    - stop
+    - I want to stop
+    - never mind
+    - forget it
+    - stop the symptom check
+    - I don't want to continue
+    - quit
+    - let's stop here
+    - abort
+    - I changed my mind, stop
+    - stop please
+    - please stop
+    - I want to quit
+    - end this
+    - cancel the symptom check
+    - I'd like to stop now
+    - stop asking me questions
+    - exit
+    - that's enough, stop
+    - let's not continue
+    - halt
+
+- intent: out_of_scope
+  examples: |
+    - what's the weather like
+    - tell me a joke
+    - order me a pizza
+    - who won the football last night
+    - what is the capital of France
+    - can you prescribe antibiotics
+    - write me a prescription
+    - what medication dose should I take
+    - how much does the clinic cost
+    - play some music
+    - what is the meaning of life
+    - do you like cats
+    - can you diagnose me with cancer
+    - book me a flight
+    - what's your favourite colour
+    - sing a song
+    - what time is it
+    - recommend a restaurant
+    - how do I fix my car
+    - what's the latest news
+    - can you do my homework
+    - tell me about the stock market
+    - who is the president
+    - translate this into Spanish
+    - what's 2 plus 2
+    - I want to buy shoes
+    - give me a recipe for pasta
+    - how tall is Mount Everest
+
+- regex: booking_ref
+  examples: |
+    - \bAPT-[A-Za-z0-9]{6}\b
+
+- synonym: diarrhoea
+  examples: |
+    - diarrhea
+    - the runs
+    - loose stools
+- synonym: fever
+  examples: |
+    - high temperature
+    - temperature
+- synonym: stomach pain
+  examples: |
+    - stomach ache
+    - tummy ache
+    - belly pain

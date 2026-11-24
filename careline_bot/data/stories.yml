@@ -1,0 +1,102 @@
+version: "3.1"
+stories:
+- story: consent, triage, then booking
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - intent: report_symptom
+    entities:
+    - symptom: sore throat
+  - action: triage_form
+  - active_loop: triage_form
+  - active_loop: null
+  - action: action_triage
+  - intent: book_appointment
+  - action: action_show_slots
+  - intent: select_slot
+    entities:
+    - slot_id: "3"
+  - action: action_book_appointment
+  - intent: thankyou
+  - action: utter_welcome
+
+- story: triage then nurse handover
+  steps:
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - active_loop: null
+  - action: action_triage
+  - intent: request_human
+  - action: action_handover
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: direct booking
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - intent: book_appointment
+  - action: action_show_slots
+  - intent: select_slot
+    entities:
+    - slot_id: "1"
+  - action: action_book_appointment
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: cancel then rebook
+  steps:
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - intent: cancel_appointment
+  - action: utter_ask_booking_ref
+  - intent: inform_booking_ref
+    entities:
+    - booking_ref: APT-4F7K2Q
+  - action: action_cancel_appointment
+  - intent: book_appointment
+  - action: action_show_slots
+  - intent: select_slot
+    entities:
+    - slot_id: "2"
+  - action: action_book_appointment
+
+- story: consent refused then nurse
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: deny_consent
+  - slot_was_set:
+    - consent: false
+  - action: utter_no_consent
+  - intent: request_human
+  - action: action_handover
+
+- story: triage stopped by the user
+  steps:
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stopped

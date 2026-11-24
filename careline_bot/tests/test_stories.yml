@@ -1,0 +1,170 @@
+version: "3.1"
+# End-to-end test conversations for `rasa test core`: real user text is run through NLU,
+# then the predicted actions are compared with the expected ones.
+stories:
+- story: T1 happy path - consent, triage, booking
+  steps:
+  - user: |
+      hello
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I agree
+    intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - user: |
+      I have a [sore throat](symptom)
+    intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - active_loop: null
+  - action: action_triage
+  - user: |
+      I want to book an appointment
+    intent: book_appointment
+  - action: action_show_slots
+  - user: |
+      slot [2](slot_id) please
+    intent: select_slot
+  - action: action_book_appointment
+  - user: |
+      thanks
+    intent: thankyou
+  - action: utter_welcome
+
+- story: T2 emergency statement is escalated immediately
+  steps:
+  - user: |
+      I have crushing chest pain
+    intent: emergency
+  - action: utter_emergency
+  - action: action_handover
+
+- story: T3 emergency raised in the middle of triage
+  steps:
+  - user: |
+      I consent
+    intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - user: |
+      I've got a [headache](symptom)
+    intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - user: |
+      I can't breathe
+    intent: emergency
+  - action: utter_emergency
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_handover
+
+- story: T4 no triage without consent
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I have a bad [cough](symptom)
+    intent: report_symptom
+  - action: utter_ask_consent
+  - user: |
+      I do not consent
+    intent: deny_consent
+  - slot_was_set:
+    - consent: false
+  - action: utter_no_consent
+
+- story: T5 no booking without consent
+  steps:
+  - user: |
+      book an appointment
+    intent: book_appointment
+  - action: utter_ask_consent
+
+- story: T6 cancel an appointment
+  steps:
+  - user: |
+      I accept
+    intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - user: |
+      I need to cancel my appointment
+    intent: cancel_appointment
+  - action: utter_ask_booking_ref
+  - user: |
+      my reference is [APT-9ZX31B](booking_ref)
+    intent: inform_booking_ref
+  - action: action_cancel_appointment
+
+- story: T7 human handover on request
+  steps:
+  - user: |
+      can I talk to a human
+    intent: request_human
+  - action: action_handover
+
+- story: T8 edge case - out-of-scope request
+  steps:
+  - user: |
+      tell me a joke
+    intent: out_of_scope
+  - action: utter_out_of_scope
+
+- story: T9 edge case - question inside the form does not break it
+  steps:
+  - user: |
+      I agree
+    intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - user: |
+      I feel unwell
+    intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - user: |
+      are you a bot
+    intent: bot_challenge
+  - action: utter_iamabot
+  - action: triage_form
+  - active_loop: triage_form
+
+- story: T10 edge case - user stops the triage
+  steps:
+  - user: |
+      I agree
+    intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+  - user: |
+      can you check my symptoms
+    intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+  - user: |
+      stop
+    intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stopped
+
+- story: T11 privacy question then goodbye
+  steps:
+  - user: |
+      who can see what I tell you
+    intent: ask_privacy
+  - action: utter_privacy
+  - user: |
+      bye
+    intent: goodbye
+  - action: utter_goodbye

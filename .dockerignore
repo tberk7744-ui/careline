@@ -1,0 +1,9 @@
+.git
+.env
+**/__pycache__
+**/.rasa
+**/models
+**/results
+**/clinic.db
+frontend/node_modules
+frontend/dist

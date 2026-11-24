@@ -1,0 +1,7 @@
+careline_repo-web:latest  73.8MB
+careline_repo-rasa:latest  4.95GB
+careline_repo-actions:latest  345MB
+node:20-alpine  194MB
+nginx:1.27-alpine  74.5MB
+rasa/rasa:3.6.21-full  4.81GB
+rasa/rasa-sdk:3.6.2  344MB

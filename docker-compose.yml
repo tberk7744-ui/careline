@@ -1,0 +1,27 @@
+services:
+  rasa:
+    build: { context: ., dockerfile: docker/rasa.Dockerfile }    # rasa/rasa:3.6.21-full, model trained at build
+    expose: ["5005"]                       # internal network only
+    depends_on: [actions]
+    healthcheck:                           # healthy once the model is loaded (~1 min)
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5005/')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    restart: unless-stopped
+  actions:
+    build: { context: ., dockerfile: docker/actions.Dockerfile } # rasa/rasa-sdk:3.6.2
+    expose: ["5055"]                       # internal network only
+    env_file: .env                         # PATIENT_TOKEN_SALT is never committed
+    environment: { CLINIC_DB: /data/clinic.db }
+    volumes: ["clinic-data:/data"]         # persistent database
+    restart: unless-stopped
+  web:
+    build: { context: ., dockerfile: docker/web.Dockerfile }     # React build served by nginx
+    ports: ["80:80"]                       # /webhooks/ -> rasa:5005 reverse proxy
+    depends_on:
+      rasa: { condition: service_healthy }
+    restart: unless-stopped
+volumes:
+  clinic-data:

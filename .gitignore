@@ -1,0 +1,13 @@
+# secrets
+.env
+# Rasa artefacts
+careline_bot/models/
+careline_bot/.rasa/
+careline_bot/results/
+careline_bot/*.db
+**/__pycache__/
+# front-end
+frontend/node_modules/
+frontend/dist/
+# local test output
+*.log

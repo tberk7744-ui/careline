@@ -1,0 +1,40 @@
+# NLU pipeline + dialogue policies for the CareLine triage assistant (Rasa Open Source 3.6)
+recipe: default.v1
+assistant_id: careline-triage-bot
+language: en
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer                 # regex hits (e.g. booking references) become features
+  - name: LexicalSyntacticFeaturizer      # token-level features for entity extraction
+  - name: CountVectorsFeaturizer          # word n-grams
+  - name: CountVectorsFeaturizer          # character n-grams: robust to typos ("stomache", "diarhea")
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier                  # Dual Intent and Entity Transformer (joint intent + entity model)
+    epochs: 100
+    number_of_transformer_layers: 2
+    transformer_size: 256
+    constrain_similarities: true
+    random_seed: 42
+  - name: RegexEntityExtractor            # deterministic extraction of booking references
+    use_lookup_tables: false
+    use_regexes: true
+  - name: EntitySynonymMapper
+  - name: FallbackClassifier              # low-confidence messages -> nlu_fallback instead of a guess
+    threshold: 0.6
+    ambiguity_threshold: 0.1
+  - name: components.red_flag_guard.RedFlagGuard   # custom rule-based safety override (runs last)
+
+policies:
+  - name: MemoizationPolicy
+  - name: RulePolicy                      # safety-critical behaviour is rule-based and deterministic
+    core_fallback_threshold: 0.4
+    core_fallback_action_name: action_default_fallback
+    enable_fallback_prediction: true
+  - name: TEDPolicy                       # Transformer Embedding Dialogue policy for unseen paths
+    max_history: 5
+    epochs: 60
+    constrain_similarities: true
+    random_seed: 42

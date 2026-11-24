@@ -1,0 +1,245 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - thankyou
+  - bot_challenge
+  - give_consent
+  - deny_consent
+  - report_symptom
+  - emergency
+  - inform
+  - book_appointment
+  - select_slot
+  - cancel_appointment
+  - inform_booking_ref
+  - request_human
+  - ask_privacy
+  - stop
+  - out_of_scope
+
+entities:
+  - symptom
+  - duration
+  - severity
+  - slot_id
+  - booking_ref
+
+slots:
+  consent:                       # GDPR: no symptom or booking data is processed before consent
+    type: bool
+    initial_value: false
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        intent: give_consent
+        value: true
+      - type: from_intent
+        intent: deny_consent
+        value: false
+  symptom:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: symptom
+      - type: from_text
+        not_intent: [emergency, stop, request_human, bot_challenge, ask_privacy, out_of_scope]
+        conditions:
+          - active_loop: triage_form
+            requested_slot: symptom
+  red_flag:
+    type: bool
+    influence_conversation: false
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: triage_form
+            requested_slot: red_flag
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: triage_form
+            requested_slot: red_flag
+  fever:
+    type: bool
+    influence_conversation: false
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: triage_form
+            requested_slot: fever
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: triage_form
+            requested_slot: fever
+  duration:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: duration
+        conditions:
+          - active_loop: triage_form
+      - type: from_text
+        not_intent: [emergency, stop, request_human, bot_challenge, ask_privacy, out_of_scope]
+        conditions:
+          - active_loop: triage_form
+            requested_slot: duration
+  severity:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: severity
+        conditions:
+          - active_loop: triage_form
+      - type: from_text
+        not_intent: [emergency, stop, request_human, bot_challenge, ask_privacy, out_of_scope]
+        conditions:
+          - active_loop: triage_form
+            requested_slot: severity
+  triage_level:                  # emergency | urgent | gp | self_care  (set by action_triage)
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  triage_summary:                # compact context passed to booking and nurse handover
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  slot_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: slot_id
+  booking_ref:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: booking_ref
+
+forms:
+  triage_form:
+    required_slots:              # order = clinically safe questioning: red flags before details
+      - symptom
+      - red_flag
+      - fever                    # only asked for infection-type symptoms (see ValidateTriageForm)
+      - duration
+      - severity
+
+responses:
+  utter_greet:
+    - text: "Hello, I'm CareLine, the automated assistant of the clinic. I am not a clinician and I do not give a diagnosis. If this is a medical emergency, call your local emergency number (112 in the EU, 999 in the UK) now.\n\nTo help you I need to process what you tell me about your health. It is used only for triage and booking and is shared only with clinic staff. Do you agree?"
+      buttons:
+        - title: "I agree"
+          payload: "/give_consent"
+        - title: "No thanks"
+          payload: "/deny_consent"
+        - title: "How is my data used?"
+          payload: "/ask_privacy"
+  utter_ask_consent:
+    - text: "Before I can do that I need your consent to process the health information you give me. Do you agree?"
+      buttons:
+        - title: "I agree"
+          payload: "/give_consent"
+        - title: "No thanks"
+          payload: "/deny_consent"
+  utter_menu:
+    - text: "Thank you. What would you like to do?"
+      buttons:
+        - title: "Check my symptoms"
+          payload: "/report_symptom"
+        - title: "Book an appointment"
+          payload: "/book_appointment"
+        - title: "Cancel or change an appointment"
+          payload: "/cancel_appointment"
+        - title: "Speak to a nurse"
+          payload: "/request_human"
+  utter_no_consent:
+    - text: "No problem, nothing has been stored. You can call the clinic reception during opening hours, or ask me to connect you to a nurse. In an emergency call 112 / 999."
+      buttons:
+        - title: "Speak to a nurse"
+          payload: "/request_human"
+  utter_privacy:
+    - text: "I only keep what is needed for triage and booking: your symptoms, your answers and your appointment. Records are stored under a pseudonymous ID, are visible only to clinic staff, and you can ask the clinic to see or delete them. I never use your data for advertising."
+  utter_ask_symptom:
+    - text: "What is the main symptom that is bothering you?"
+  utter_ask_red_flag:
+    - text: "Do you have ANY of these right now: chest pain or pressure, severe difficulty breathing, sudden weakness or numbness of the face, arm or leg, confusion or trouble speaking, heavy bleeding that will not stop, or a severe allergic reaction?"
+      buttons:
+        - title: "Yes"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
+  utter_ask_fever:
+    - text: "Do you also have a high temperature (38°C / 100.4°F or above)?"
+      buttons:
+        - title: "Yes"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
+  utter_ask_duration:
+    - text: "How long have you had this?"
+      buttons:
+        - title: "Less than 3 days"
+          payload: '/inform{{"duration":"2 days"}}'
+        - title: "3 to 7 days"
+          payload: '/inform{{"duration":"5 days"}}'
+        - title: "More than a week"
+          payload: '/inform{{"duration":"10 days"}}'
+  utter_ask_severity:
+    - text: "On a scale from 1 (very mild) to 10 (worst imaginable), how bad is it?"
+      buttons:
+        - title: "1-3 mild"
+          payload: '/inform{{"severity":"2"}}'
+        - title: "4-6 moderate"
+          payload: '/inform{{"severity":"5"}}'
+        - title: "7-8 severe"
+          payload: '/inform{{"severity":"8"}}'
+        - title: "9-10 very severe"
+          payload: '/inform{{"severity":"10"}}'
+  utter_emergency:
+    - text: "This may be an emergency. Call your local emergency number NOW (112 in the EU, 999 in the UK) or go to the nearest emergency department. Do not wait for an appointment and do not drive yourself."
+  utter_ask_booking_ref:
+    - text: "Please type the booking reference of the appointment (it looks like APT-4F7K2Q)."
+  utter_iamabot:
+    - text: "I'm an automated assistant, not a human and not a clinician. I can check symptoms, book or cancel appointments, or pass you to a nurse."
+  utter_stopped:
+    - text: "OK, I've stopped. Nothing further was recorded. You can start again at any time."
+  utter_out_of_scope:
+    - text: "I can't help with that. I can check symptoms, book or cancel appointments, or connect you to a nurse."
+  utter_default:
+    - text: "Sorry, I didn't understand that. Could you rephrase, or would you like to speak to a nurse?"
+      buttons:
+        - title: "Speak to a nurse"
+          payload: "/request_human"
+  utter_welcome:
+    - text: "You're welcome."
+  utter_goodbye:
+    - text: "Take care. If your symptoms get worse or you are worried, contact the clinic, or call 112 / 999 in an emergency."
+
+actions:
+  - validate_triage_form
+  - action_triage
+  - action_show_slots
+  - action_book_appointment
+  - action_cancel_appointment
+  - action_handover
+
+session_config:
+  session_expiration_time: 30      # minutes: an idle session expires so stale health data is not reused
+  carry_over_slots_to_new_session: false

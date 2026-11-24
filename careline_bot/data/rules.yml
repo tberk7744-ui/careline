@@ -1,0 +1,185 @@
+version: "3.1"
+rules:
+# ---------------- small talk and information ----------------
+- rule: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: thank you
+  steps:
+  - intent: thankyou
+  - action: utter_welcome
+
+- rule: bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: privacy question
+  steps:
+  - intent: ask_privacy
+  - action: utter_privacy
+
+- rule: out of scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+
+- rule: low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default
+
+- rule: stop outside a form
+  steps:
+  - intent: stop
+  - action: utter_stopped
+
+# ---------------- consent (GDPR lawful basis) ----------------
+- rule: consent given
+  steps:
+  - intent: give_consent
+  - slot_was_set:
+    - consent: true
+  - action: utter_menu
+
+- rule: consent refused
+  steps:
+  - intent: deny_consent
+  - slot_was_set:
+    - consent: false
+  - action: utter_no_consent
+
+# ---------------- safety: emergency always wins ----------------
+- rule: emergency outside a form
+  steps:
+  - intent: emergency
+  - action: utter_emergency
+  - action: action_handover
+
+- rule: emergency during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: emergency
+  - action: utter_emergency
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_handover
+
+# ---------------- symptom triage ----------------
+- rule: start triage (consent given)
+  condition:
+  - slot_was_set:
+    - consent: true
+  steps:
+  - intent: report_symptom
+  - action: triage_form
+  - active_loop: triage_form
+
+- rule: triage requested without consent
+  condition:
+  - slot_was_set:
+    - consent: false
+  steps:
+  - intent: report_symptom
+  - action: utter_ask_consent
+
+- rule: triage form completed
+  condition:
+  - active_loop: triage_form
+  steps:
+  - action: triage_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_triage
+
+- rule: bot challenge during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - action: triage_form
+  - active_loop: triage_form
+
+- rule: privacy question during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: ask_privacy
+  - action: utter_privacy
+  - action: triage_form
+  - active_loop: triage_form
+
+- rule: out of scope during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - action: triage_form
+  - active_loop: triage_form
+
+- rule: stop during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stopped
+
+- rule: human requested during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: request_human
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_handover
+
+# ---------------- appointments ----------------
+- rule: show appointment slots (consent given)
+  condition:
+  - slot_was_set:
+    - consent: true
+  steps:
+  - intent: book_appointment
+  - action: action_show_slots
+
+- rule: booking requested without consent
+  condition:
+  - slot_was_set:
+    - consent: false
+  steps:
+  - intent: book_appointment
+  - action: utter_ask_consent
+
+- rule: book the selected slot
+  steps:
+  - intent: select_slot
+  - action: action_book_appointment
+
+- rule: cancel or change appointment
+  steps:
+  - intent: cancel_appointment
+  - action: utter_ask_booking_ref
+
+- rule: booking reference received
+  steps:
+  - intent: inform_booking_ref
+  - action: action_cancel_appointment
+
+# ---------------- human handover ----------------
+- rule: handover to nurse
+  steps:
+  - intent: request_human
+  - action: action_handover

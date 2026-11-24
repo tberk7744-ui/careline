@@ -1,0 +1,24 @@
+actions-1  | 2026-11-21 20:16:09 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+actions-1  | 2026-11-21 20:16:09 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+actions-1  | 2026-11-21 20:16:09 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+actions-1  | 2026-11-21 20:16:10 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:14 +0000] "POST /webhooks/rest/webhook HTTP/1.1" 200 366 "-" "Python-urllib/3.12" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:14 +0000] "POST /webhooks/rest/webhook HTTP/1.1" 200 305 "-" "Python-urllib/3.12" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:14 +0000] "POST /webhooks/rest/webhook HTTP/1.1" 200 390 "-" "Python-urllib/3.12" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:14 +0000] "POST /webhooks/rest/webhook HTTP/1.1" 200 736 "-" "Python-urllib/3.12" "-"
+actions-1  | 2026-11-21 20:16:10 WARNING  rasa_sdk.forms  - Skipping validation for `fever`: there is no validation method specified.
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:22 +0000] "GET / HTTP/1.1" 200 414 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:22 +0000] "GET /assets/index-CS9nTFmv.js HTTP/1.1" 200 147824 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:22 +0000] "GET /assets/index-CxNo-mmL.css HTTP/1.1" 200 4109 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36" "-"
+web-1      | 172.18.0.1 - - [21/Nov/2026:20:16:22 +0000] "POST /webhooks/rest/webhook HTTP/1.1" 200 594 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36" "-"
+actions-1  | 2026-11-21 20:16:10 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+actions-1  | 2026-11-21 20:16:13 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+actions-1  | 2026-11-21 20:16:14 WARNING  rasa_sdk.forms  - Skipping validation for `red_flag`: there is no validation method specified.
+rasa-1     | /opt/venv/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel.yaml')`.
+rasa-1     | Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+rasa-1     |   declare_namespace(pkg)
+rasa-1     | /opt/venv/lib/python3.10/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+rasa-1     |   SANIC_VERSION = LooseVersion(sanic_version)
+rasa-1     | 2026-11-21 20:14:55 INFO     root  - Starting Rasa server on http://0.0.0.0:5005
+rasa-1     | 2026-11-21 20:14:56 INFO     rasa.core.processor  - Loading model /app/models/careline.tar.gz...
+rasa-1     | 2026-11-21 20:15:57 INFO     root  - Rasa server is up and running.

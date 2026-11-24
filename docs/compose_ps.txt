@@ -1,0 +1,4 @@
+NAME                      SERVICE   STATE     STATUS         PORTS
+careline_repo-actions-1   actions   running   Up 2 minutes   5055/tcp
+careline_repo-rasa-1      rasa      running   Up 2 minutes   5005/tcp
+careline_repo-web-1       web       running   Up 2 minutes   0.0.0.0:80->80/tcp, [::]:80->80/tcp

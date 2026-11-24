@@ -1,0 +1,3 @@
+# Local development (no Docker): the action server runs on this machine.
+action_endpoint:
+  url: "http://localhost:5055/webhook"

@@ -1,0 +1,4 @@
+# Action server address inside the Docker Compose network (service name "actions").
+# For a local run without Docker use: rasa run ... --endpoints endpoints.local.yml
+action_endpoint:
+  url: "http://actions:5055/webhook"
