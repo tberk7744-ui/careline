@@ -1,0 +1,23 @@
+$ gcloud compute instances list
+NAME         ZONE            MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+careline-vm  europe-west1-b  e2-medium                  10.132.0.2   146.148.15.200  RUNNING
+
+$ gcloud compute instances describe careline-vm (özet)
+creationTimestamp: '2026-11-25T08:36:34.100-08:00'
+disks:
+- diskSizeGb: '30'
+machineType: e2-medium
+name: careline-vm
+networkInterfaces:
+- accessConfigs:
+  - natIP: 146.148.15.200
+status: RUNNING
+tags:
+  items:
+  - http-server
+  - https-server
+zone: europe-west1-b
+
+$ gcloud compute addresses list
+NAME         ADDRESS/RANGE   TYPE      PURPOSE  NETWORK  REGION        SUBNET  STATUS
+careline-ip  146.148.15.200  EXTERNAL                    europe-west1          IN_USE

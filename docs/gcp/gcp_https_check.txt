@@ -1,0 +1,16 @@
+$ curl -I http://146-148-15-200.sslip.io/
+HTTP/1.1 301 Moved Permanently
+Server: nginx/1.27.5
+Date: Wed, 25 Nov 2026 17:09:05 GMT
+$ curl -I https://146-148-15-200.sslip.io/
+HTTP/2 200 
+server: nginx/1.27.5
+date: Wed, 25 Nov 2026 17:09:05 GMT
+content-type: text/html
+content-length: 414
+last-modified: Wed, 25 Nov 2026 16:47:40 GMT
+$ openssl s_client (sertifika)
+subject=CN = 146-148-15-200.sslip.io
+issuer=C = US, O = Let's Encrypt, CN = YE1
+notBefore=Nov 25 16:03:11 2026 GMT
+notAfter=Feb 23 16:03:10 2027 GMT

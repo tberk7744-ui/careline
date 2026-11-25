@@ -1,0 +1,25 @@
+$ docker compose -f docker-compose.yml -f docker-compose.https.yml ps
+NAME                 IMAGE              COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+careline-actions-1   careline-actions   "./entrypoint.sh sta…"   actions   7 minutes ago   Up 7 minutes             5055/tcp
+careline-rasa-1      careline-rasa      "rasa run --enable-a…"   rasa      7 minutes ago   Up 7 minutes (healthy)   5005/tcp
+careline-web-1       careline-web       "/docker-entrypoint.…"   web       7 minutes ago   Up 6 minutes             0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp
+
+$ docker stats --no-stream
+NAME                 CPU %     MEM USAGE / LIMIT
+careline-web-1       0.00%     4.066MiB / 3.817GiB
+careline-rasa-1      0.01%     1008MiB / 3.817GiB
+careline-actions-1   0.00%     26.86MiB / 3.817GiB
+
+$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            3908        1646        1016           1        1537        2261
+Swap:              0           0           0
+
+$ sudo certbot certificates
+  Certificate Name: 146-148-15-200.sslip.io
+    Serial Number: 58f105b51df36d8a38ad96af19257525599
+    Key Type: ECDSA
+    Domains: 146-148-15-200.sslip.io
+    Expiry Date: 2027-02-23 16:03:10+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/146-148-15-200.sslip.io/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/146-148-15-200.sslip.io/privkey.pem

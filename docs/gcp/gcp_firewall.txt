@@ -1,0 +1,7 @@
+$ gcloud compute firewall-rules list
+NAME                    DIRECTION  SOURCE_RANGES  ALLOW                         TARGET_TAGS
+default-allow-http      INGRESS    0.0.0.0/0      tcp:80                        http-server
+default-allow-https     INGRESS    0.0.0.0/0      tcp:443                       https-server
+default-allow-icmp      INGRESS    0.0.0.0/0      icmp
+default-allow-internal  INGRESS    10.128.0.0/9   tcp:0-65535,udp:0-65535,icmp
+default-allow-ssh       INGRESS    0.0.0.0/0      tcp:22
