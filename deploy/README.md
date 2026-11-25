@@ -21,15 +21,19 @@
    docker compose up -d --build
    docker compose ps
    ```
-5. **HTTPS** – stop the web service, obtain a certificate, and add a 443 server block to `docker/nginx.conf`:
+5. **HTTPS** – obtain a Let's Encrypt certificate (port 80 must be free), then start the stack with the HTTPS layer
+   (`docker-compose.https.yml` + `docker/nginx.https.conf.template`: 80 → 443 redirect, TLS 1.2/1.3, HSTS,
+   Rasa CORS limited to `https://$DOMAIN`):
    ```bash
+   echo "DOMAIN=<ip-with-dashes>.sslip.io" >> .env
    docker compose stop web
    sudo apt install -y certbot
-   sudo certbot certonly --standalone -d <ip-with-dashes>.sslip.io
+   sudo certbot certonly --standalone -d <ip-with-dashes>.sslip.io --agree-tos --register-unsafely-without-email \
+     --pre-hook  "docker compose -f $PWD/docker-compose.yml stop web" \
+     --post-hook "docker compose -f $PWD/docker-compose.yml -f $PWD/docker-compose.https.yml start web"
+   docker compose -f docker-compose.yml -f docker-compose.https.yml up -d --build --wait
    ```
-   Mount `/etc/letsencrypt` read-only into the `web` service, publish `443:443`, redirect 80 → 443,
-   and restrict CORS in `docker/rasa.Dockerfile` (`--cors "https://<ip-with-dashes>.sslip.io"`).
-   Then `docker compose up -d --build web`.
+   The hooks let the certbot timer renew the certificate automatically.
 6. **Measure** – rerun the response-time script against `https://<ip-with-dashes>.sslip.io/webhooks/rest/webhook`.
 7. **Screenshots** – VM instances page, firewall rules, `docker compose ps`, the chat in the browser (padlock).
 8. **Stop the VM** (`gcloud compute instances stop careline-vm --zone=europe-west1-b`) so it does not consume credit;

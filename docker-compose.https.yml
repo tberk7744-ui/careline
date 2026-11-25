@@ -1,0 +1,14 @@
+# HTTPS layer for the cloud VM (local runs keep using docker-compose.yml alone).
+# Needs DOMAIN=<name> in .env and a Let's Encrypt certificate in /etc/letsencrypt/live/<name>/.
+#   docker compose -f docker-compose.yml -f docker-compose.https.yml up -d --build --wait
+services:
+  rasa:
+    # CORS limited to the public HTTPS origin instead of "*"
+    command: ["run", "--enable-api", "--port", "5005", "--model", "/app/models/careline.tar.gz",
+              "--cors", "https://${DOMAIN:?set DOMAIN in .env}"]
+  web:
+    ports: ["443:443"]                     # added to 80:80 from the base file (80 now redirects to 443)
+    environment: { DOMAIN: "${DOMAIN}" }
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./docker/nginx.https.conf.template:/etc/nginx/templates/default.conf.template:ro
