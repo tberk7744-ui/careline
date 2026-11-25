@@ -9,7 +9,7 @@ The triage rules are illustrative and **not clinically validated**.
 | `frontend/` | React (Vite) chat UI: quick replies, triage card, appointment card, emergency and nurse-handover banners |
 | `docker/` | Dockerfiles for `rasa`, `actions` and `web` (nginx) and the nginx config |
 | `docker-compose.yml` | the three services and the persistent `clinic-data` volume |
-| `deploy/README.md` | step-by-step cloud deployment (Azure VM) |
+| `deploy/README.md` | step-by-step cloud deployment (Google Cloud Compute Engine VM) |
 
 ## Run everything with Docker Compose
 ```bash
