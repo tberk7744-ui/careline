@@ -1,0 +1,183 @@
+version: "3.1"
+nlu:
+- intent: select_slot
+  examples: |
+    - option [1](slot_id)
+    - I'll take slot [3](slot_id)
+- intent: inform_booking_ref
+  examples: |
+    - booking ref [APT-XY12Z9](booking_ref)
+- intent: thankyou
+  examples: |
+    - thanks a lot
+    - that's helpful, thanks
+    - thanks so much
+- intent: goodbye
+  examples: |
+    - see you later
+    - ok bye
+    - talk to you later
+- intent: bot_challenge
+  examples: |
+    - is this automated
+    - are you a human
+    - is this a bot or a person
+- intent: greet
+  examples: |
+    - hi there
+    - good day
+    - hello, I need some help
+    - hello CareLine
+- intent: affirm
+  examples: |
+    - yes
+    - that's correct
+    - I do
+- intent: request_human
+  examples: |
+    - can I talk to a human
+    - I want to talk to someone
+    - connect me to a person
+    - let me speak to a real person
+- intent: give_consent
+  examples: |
+    - yes you can use my information
+    - agreed
+    - I agree to the processing
+    - I give permission
+- intent: stop
+  examples: |
+    - let's not continue
+    - I changed my mind, stop
+    - abort
+    - end this
+- intent: deny_consent
+  examples: |
+    - I won't give consent
+    - no I don't agree to that
+    - I don't consent
+    - I'm not agreeing to that
+    - I'd rather not share my data
+- intent: cancel_appointment
+  examples: |
+    - reschedule my booking
+    - I need to cancel
+    - I need to change my booking
+    - cancel my appointment
+- intent: ask_privacy
+  examples: |
+    - where is my data stored
+    - do you share my details with anyone
+    - what happens to my health information
+    - can I delete my data
+    - what is your privacy policy
+- intent: book_appointment
+  examples: |
+    - I want to schedule a visit
+    - can I come in and see someone
+    - make a booking
+    - book an appointment
+    - can I see a doctor
+- intent: out_of_scope
+  examples: |
+    - write me a prescription
+    - play some music
+    - how much does the clinic cost
+    - tell me about the stock market
+    - can you prescribe antibiotics
+    - do you like cats
+- intent: deny
+  examples: |
+    - no, none
+    - no nothing like that
+    - no, I haven't got any of those
+    - nope
+    - none of those
+    - i believe i dont have these
+- intent: inform
+  examples: |
+    - [2 days](duration)
+    - for [5 days](duration) now
+    - maybe [8](severity) out of 10
+    - almost [a month](duration)
+    - it's a [3](severity)
+    - I would say [4](severity)
+- intent: emergency
+  examples: |
+    - there is a lot of blood and it will not stop
+    - I am coughing up a lot of blood
+    - my throat is swelling and I can't swallow
+    - he's choking and can't breathe
+    - I can't move one side of my body
+    - he is not breathing
+    - I feel like I'm going to pass out and my chest is tight
+    - my chest feels tight and it hurts
+- intent: report_symptom
+  examples: |
+    - can you check my symptoms
+    - I woke up with a [sore throat](symptom)
+    - my child has a [fever](symptom)
+    - I want to check my symptoms
+    - I need a symptom check
+    - symptom checker please
+    - I think I have a [cold](symptom)
+    - my [throat is sore]{"entity": "symptom", "value": "sore throat"}
+    - I've got [earache](symptom)
+    - I've got a [headache](symptom)
+    - I've got really bad [back pain](symptom)
+- synonym: back pain
+  examples: |
+    - back hurts
+- synonym: dizziness
+  examples: |
+    - dizzy
+- synonym: diarrhoea
+  examples: |
+    - diarrhea
+    - the runs
+    - loose stools
+- synonym: earache
+  examples: |
+    - ear hurts
+- synonym: headache
+  examples: |
+    - migraine
+- synonym: sore throat
+  examples: |
+    - throat is sore
+- synonym: cough
+  examples: |
+    - coughing
+- synonym: nausea
+  examples: |
+    - sick
+    - nauseous
+- synonym: fever
+  examples: |
+    - high temperature
+    - temperature
+- synonym: stomach pain
+  examples: |
+    - stomach ache
+    - stomach hurts
+    - tummy ache
+    - belly pain
+- synonym: urinary pain
+  examples: |
+    - pain when I pee
+    - burning when urinating
+- synonym: runny nose
+  examples: |
+    - blocked nose
+- synonym: rash
+  examples: |
+    - skin rash
+- synonym: knee pain
+  examples: |
+    - knee hurts
+- synonym: vomiting
+  examples: |
+    - throwing up
+- regex: booking_ref
+  examples: |
+    - \bAPT-[A-Za-z0-9]{6}\b

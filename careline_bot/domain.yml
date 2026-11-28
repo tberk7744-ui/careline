@@ -20,6 +20,7 @@ intents:
   - ask_privacy
   - stop
   - out_of_scope
+  - seek_care   # set only by RedFlagGuard (safety net), no NLU examples
 
 entities:
   - symptom
@@ -221,10 +222,17 @@ responses:
   utter_stopped:
     - text: "OK, I've stopped. Nothing further was recorded. You can start again at any time."
   utter_out_of_scope:
-    - text: "I can't help with that. I can check symptoms, book or cancel appointments, or connect you to a nurse."
+    - text: "I can't help with that. If you or someone else is in danger or very unwell, call 112 (EU) / 999 (UK) now. Otherwise I can check symptoms, book or cancel appointments, or connect you to a nurse."
   utter_default:
-    - text: "Sorry, I didn't understand that. Could you rephrase, or would you like to speak to a nurse?"
+    - text: "Sorry, I didn't understand that. If this could be an emergency, call 112 (EU) / 999 (UK) now. Otherwise, could you rephrase, or would you like to speak to a nurse?"
       buttons:
+        - title: "Speak to a nurse"
+          payload: "/request_human"
+  utter_safety_net:
+    - text: "I can't safely judge how urgent this is from a message. If it is serious or getting worse (for example trouble breathing, chest pain, heavy bleeding, fainting, a severe allergic reaction, or thoughts of harming yourself), call 112 (EU) / 999 (UK) now. Otherwise I can check your symptoms or connect you to a nurse."
+      buttons:
+        - title: "Check my symptoms"
+          payload: "/report_symptom"
         - title: "Speak to a nurse"
           payload: "/request_human"
   utter_welcome:

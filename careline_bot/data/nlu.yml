@@ -59,6 +59,21 @@ nlu:
     - yes, one of those
     - yeah I think so
     - that's right
+    - I think so
+    - I think I do
+    - yes I think I have that
+    - probably yes
+    - I believe so
+    - yeah I do
+    - yup
+    - mhm yes
+    - definitely
+    - absolutely
+    - of course
+    - right
+    - yes that one
+    - I'm afraid so
+    - yes, sadly
 
 - intent: deny
   examples: |
@@ -80,6 +95,20 @@ nlu:
     - no, I haven't got any of those
     - nothing like that
     - no none of these
+    - I don't think so
+    - i dont think so
+    - I believe I don't have these
+    - i believe i dont have these
+    - I don't have any of these
+    - i dont have those
+    - I don't think I have any of them
+    - I don't believe so
+    - I'm pretty sure I don't
+    - not that I know of
+    - not as far as I know
+    - I don't have that
+    - no I don't think I do
+    - I wouldn't say so
 
 - intent: thankyou
   examples: |
@@ -116,6 +145,15 @@ nlu:
     - is this a bot or a person
     - are you human or machine
     - am I speaking to a computer
+    - who made you
+    - is this a real person replying
+    - am I speaking to a nurse right now
+    - are you an actual nurse
+    - is there a human on the other end
+    - is this a person or a bot
+    - are you a real doctor
+    - am I talking to a human
+    - are you automated
 
 - intent: give_consent
   examples: |
@@ -139,6 +177,18 @@ nlu:
     - I give permission
     - yes that's fine, I agree
     - ok, I consent to that
+    - you can process my data
+    - I agree to you using my data
+    - yes, you can store my information
+    - I'm fine with you processing my information
+    - I consent to data processing
+    - I agree to share my health info
+    - yes, process my details
+    - ok you can use my data for this
+    - I give permission to use my information
+    - I'm okay with sharing my data
+    - I agree to the data processing
+    - yes I'm fine with that, use my data
 
 - intent: deny_consent
   examples: |
@@ -164,6 +214,31 @@ nlu:
     - I withdraw my consent
     - no consent
     - I'm not agreeing to that
+    - no I don't consent
+    - I don't want to agree
+    - not comfortable with that
+    - I'm not okay with sharing my data
+    - no, keep my data private
+    - I prefer not to give consent
+    - I won't agree
+    - nope, no consent
+    - I don't want you to process my data
+    - I refuse to share my health info
+    - don't use my information
+    - I say no to data processing
+    - I'm not giving permission
+    - no, I don't accept that
+    - I object to this
+    - I want to withdraw my consent
+    - I take back my consent
+    - I strongly disagree
+    - I disagree with that
+    - I decline to consent
+    - I decline, thanks
+    - I object
+    - I object to the processing
+    - no, I withdraw
+    - I refuse to consent
 
 - intent: report_symptom
   examples: |
@@ -222,6 +297,14 @@ nlu:
     - I have [shoulder pain](symptom)
     - I've got a [cold](symptom) and I feel rough
     - I'd like some advice about my [headache](symptom)
+    - my gums bleed a little when I floss
+    - I found a bit of blood when I blew my nose
+    - there was a spot of blood on my tissue
+    - I get small nosebleeds sometimes
+    - a small cut on my hand bled a bit
+    - I noticed a little blood after shaving
+    - my nose has been a bit crusty and bloody
+    - I had a tiny nosebleed last night
 
 - intent: emergency
   examples: |
@@ -330,6 +413,12 @@ nlu:
     - appointment booking
     - I need to book in with the GP
     - can I come in and see someone
+    - I need to book a blood test
+    - can I get my blood pressure checked
+    - I'd like an appointment for blood tests
+    - book me in for a blood pressure review
+    - I need bloods taken
+    - can I come in for a routine blood test
 
 - intent: select_slot
   examples: |
@@ -397,6 +486,16 @@ nlu:
     - I want to talk to a doctor directly
     - please connect me to a nurse
     - let me talk to reception
+    - I want to talk to a real person
+    - let me speak to a real nurse
+    - transfer me to a person
+    - I'd like a human to help me
+    - can you put me through to a nurse
+    - pass me to someone at the clinic
+    - I want to speak to a member of the team
+    - please transfer me to reception
+    - I need a real person to help
+    - can a person call me back
 
 - intent: ask_privacy
   examples: |
@@ -422,6 +521,16 @@ nlu:
     - tell me about data protection
     - what do you do with the information I give
     - is my chat private
+    - do you keep my data
+    - is my data stored anywhere
+    - do you share my information with anyone
+    - how long is my information kept
+    - who sees my data
+    - is my information shared with third parties
+    - do you sell my data
+    - can I ask for my data to be deleted
+    - will my information be passed on
+    - is my health data secure
 
 - intent: stop
   examples: |
@@ -477,6 +586,19 @@ nlu:
     - I want to buy shoes
     - give me a recipe for pasta
     - how tall is Mount Everest
+    - can you increase my medication
+    - what pills should I take for this
+    - is ibuprofen safe for me
+    - do you sell vitamins
+    - how much is parking at the clinic
+    - can I pay by card
+    - what's your opening hours on christmas
+    - can you give me a sick note
+    - do you know a good dentist
+    - what's the wifi password
+    - is this a real doctor's opinion
+    - can you read my x-ray
+    - tell me about bitcoin
 
 - regex: booking_ref
   examples: |

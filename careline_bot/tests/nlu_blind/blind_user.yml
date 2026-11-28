@@ -1,0 +1,86 @@
+version: "3.1"
+# KÖR TEST SETİ – kullanıcı yazdı (2026-11-27). Kelimeler DEĞİŞTİRİLMEDİ (yazım hataları bilerek korundu);
+# Claude yalnızca niyet başlıklarına yerleştirdi (niyetler kullanıcıyla birlikte kararlaştırıldı) ve inform'a varlık etiketi ekledi.
+# Ham hâli: 3Odev/eski_surumler/blind_user_ham_2026-11-27.txt. Bu dosyadaki cümleler eğitime ASLA eklenmez.
+# Sınırda acil işaretlenenler: "blood pressure is 80/50", "fever is above 40 celcius".
+nlu:
+- intent: emergency
+  examples: |
+    - Hello i took too much vitamins or pills i dont know what i took can you help me please what should i do.
+    - my throath is swelling, i am not cold i mean i dont feel sick but suddenly my throath is getting bigger i am having hard time to swallow my own spit. i think it started after i ate peanuts. what should i do?
+    - i dont feel like i can live with tihs pain anymore.
+    - like an elephant is sitting on my chest can you tell me what is happening and my left arm also feels funny
+    - i have some trouble having air into my lungs
+    - blood everywhere icoundt stop the bleeding what should i do its just not stopping
+    - my friend is on the floor i think she is not concious. i slaped her a little nothing! what to do
+    - my firend his face is not symetrical its like one of the sides is like hanged or something. and his talk is little different .
+    - my son he is on the floor with little white bubbles on his mouth. i think he is not concious.
+    - i hurt myself today to see that istill have feelings. i cut my arm with a razor. how bout that?
+    - i ate oysters and it tasted a little funny. now i feel like i am flying and having hard time breathing.
+    - my arm it doesnt have a feeling. i cannot feel it.
+    - my blood pressure is 80/50 should i see a doctor.
+    - i took an antibiotics and suddenly i see some scars on my skin. its bubbly and blue shoul i see someone?
+    - my fever is above 40 celcius should i go to a hospital?
+    - yes i feel like my throath is getting closed.
+- intent: report_symptom
+  examples: |
+    - i didnt do anything but i feel burn on my skin. although i took some antibiotics for my fever. is it normal?
+    - i think i have a little bug on my skin but i dont move it it kind of stuck onto my skin. should i see a doctor now or shoul i wait.
+    - i took two corasprin. it usually works for my headache. but it didnt changed much.
+    - after i brushed my teeth i saw some blood on the sink.
+    - i saw some blood on my pillow. i think it comes from my nose because my my nose is scabby.
+    - i recovered from a flu since then i am having hard time climbing the stairs. i am having hard time breathing since then.
+    - my throath is hurting me when i swallow.
+    - i cut my finger while cooking. i think its okey know. i patched it.
+- intent: book_appointment
+  examples: |
+    - i think my blood pressure is too high can you check it.
+    - i need my blood to be tested lets arrange that.
+    - I would like to make an appointment with my eye doctor.
+- intent: cancel_appointment
+  examples: |
+    - i wanna cancel my appointment its this tuesday.
+- intent: out_of_scope
+  examples: |
+    - i have a peanut allergy. i know this but i dont know what to do before i started to eat my meals should i take someting i dont know the ingredients of the food.
+    - i am having hard time with my job people are making me tired. i hate my work i hate people in general.
+    - i wander what pain killers i can take and on what basis.
+    - can you guess my name
+    - i have some troubles to find my purpose in this life you tell me what is your purpose
+- intent: give_consent
+  examples: |
+    - okey do whatever you want.
+    - whatever
+- intent: deny_consent
+  examples: |
+    - not so fast cowboy
+    - i think you dont need to contain my information, no you cannot!
+- intent: ask_privacy
+  examples: |
+    - who have acces to my info. where do you containing it?
+- intent: request_human
+  examples: |
+    - i want to talk to someone in charge a nurse maybe or a doctor.
+    - can you cut the bullshit and forward me to a nurse you robot.
+- intent: bot_challenge
+  examples: |
+    - are you a human? you are a bot arent you?
+    - am i talking to a person or a bot?
+- intent: deny
+  examples: |
+    - no i dont have a fever its only 38 celcius.
+- intent: greet
+  examples: |
+    - hello my dear who is this
+- intent: thankyou
+  examples: |
+    - thanks ma dear
+- intent: goodbye
+  examples: |
+    - seeyah ma boi
+- intent: inform
+  examples: |
+    - its been [3 days](duration) since my nose is running. and i have a headache its [4](severity) out of 10.
+- intent: stop
+  examples: |
+    - i had to leave my doorbell is ringing we well talk later on

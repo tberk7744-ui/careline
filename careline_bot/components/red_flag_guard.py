@@ -14,19 +14,22 @@ from rasa.engine.storage.resource import Resource
 from rasa.engine.storage.storage import ModelStorage
 from rasa.shared.nlu.training_data.message import Message
 
-from actions.triage import has_red_flag
+from actions.triage import asks_about_urgency, has_red_flag
 
 
 @DefaultV1Recipe.register([DefaultV1Recipe.ComponentType.INTENT_CLASSIFIER], is_trainable=False)
 class RedFlagGuard(GraphComponent):
-    """Forces the intent to `emergency` (confidence 1.0) when a red-flag pattern is present."""
+    """Forces `emergency` on a red-flag pattern; maps explicit urgency questions to the `seek_care` safety net."""
 
     @staticmethod
     def get_default_config() -> Dict[Text, Any]:
-        return {"intent": "emergency"}
+        return {"intent": "emergency", "safety_net_intent": "seek_care",
+                "keep_intents": ["emergency", "request_human"]}
 
     def __init__(self, config: Dict[Text, Any]) -> None:
         self._intent = config["intent"]
+        self._safety = config["safety_net_intent"]
+        self._keep = set(config["keep_intents"])
 
     @classmethod
     def create(cls, config: Dict[Text, Any], model_storage: ModelStorage, resource: Resource,
@@ -36,10 +39,16 @@ class RedFlagGuard(GraphComponent):
     def process(self, messages: List[Message]) -> List[Message]:
         for message in messages:
             text = message.get("text")
-            if not text or text.startswith("/") or not has_red_flag(text):
+            if not text or text.startswith("/"):
                 continue
-            override = {"name": self._intent, "confidence": 1.0}
-            ranking = [r for r in (message.get("intent_ranking") or []) if r.get("name") != self._intent]
+            if has_red_flag(text):
+                target = self._intent
+            elif asks_about_urgency(text) and (message.get("intent") or {}).get("name") not in self._keep:
+                target = self._safety   # safety net: "should I go to hospital?" -> 112/999 advice + nurse
+            else:
+                continue
+            override = {"name": target, "confidence": 1.0}
+            ranking = [r for r in (message.get("intent_ranking") or []) if r.get("name") != target]
             message.set("intent", override, add_to_output=True)
             message.set("intent_ranking", [override] + ranking, add_to_output=True)
         return messages

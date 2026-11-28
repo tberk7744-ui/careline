@@ -1,0 +1,114 @@
+version: "3.1"
+# KÖR TEST SETİ (Claude yazdı, 2026-11-27). v3 eğitiminden ÖNCE donduruldu.
+# Bu dosyadaki hiçbir cümle (ya da yakın türevi) eğitim verisine eklenemez.
+nlu:
+- intent: emergency
+  examples: |
+    - my dad just fell over and hes not waking up
+    - i think im having a heart attack my left arm is numb
+    - theres blood everywhere i cut my hand really deep and it keeps pouring
+    - my wife cant speak properly and her face looks weird on one side
+    - im coughing up blood
+    - I took a whole packet of paracetamol an hour ago
+    - my baby is breathing really fast and making a grunting noise
+    - I feel like my chest is being crushed
+    - my throat is closing up after I ate peanuts
+    - I don't want to be alive anymore
+    - my son had a fit and is still shaking
+    - i was stung by a bee and now my tongue is swelling
+- intent: report_symptom
+  examples: |
+    - ive had a [sore throat](symptom) since the weekend
+    - got a bad [headache](symptom) again
+    - my [back](symptom) is killing me after the gym
+    - I think I might have a [cold](symptom), sneezing all day
+    - having some [diarrhoea](symptom) since yesterday evening
+    - my nose bled a little this morning but it stopped on its own
+- intent: give_consent
+  examples: |
+    - yeah thats fine go ahead
+    - ok i consent
+    - sure you can process it
+    - I'm happy for you to use my details
+    - fine by me, I agree
+- intent: deny_consent
+  examples: |
+    - nah i dont consent
+    - I'd rather not agree to that
+    - no you may not use my details
+    - I'm not consenting to anything
+    - no thanks, I won't agree
+- intent: ask_privacy
+  examples: |
+    - where does my info go after this chat
+    - is what i type here kept somewhere
+    - do doctors see this conversation
+    - what happens to my answers afterwards
+    - is my chat confidential
+- intent: request_human
+  examples: |
+    - can i just talk to an actual person please
+    - get me a nurse
+    - I'd like to speak with someone from the surgery
+    - this isn't helping, I need a human
+    - connect me with a staff member
+- intent: bot_challenge
+  examples: |
+    - wait are you a bot
+    - is a person typing this
+    - am i chatting with ai
+    - are you human or a program
+- intent: affirm
+  examples: |
+    - yeah i have
+    - mm yes i think i have that one
+    - yep thats right
+    - i guess so yes
+- intent: deny
+  examples: |
+    - nah not me
+    - no none of those
+    - not really no
+    - i dont have any of that
+- intent: greet
+  examples: |
+    - hi hi
+    - evening
+    - hello is anyone there
+- intent: goodbye
+  examples: |
+    - cheers bye
+    - thats all bye now
+- intent: thankyou
+  examples: |
+    - thank you thats really useful
+    - ta
+- intent: book_appointment
+  examples: |
+    - can i get an appointment with the gp
+    - I need to book in to see a doctor
+    - any slots free this week?
+- intent: cancel_appointment
+  examples: |
+    - i cant make my appointment anymore
+    - please cancel the booking i made
+- intent: inform_booking_ref
+  examples: |
+    - its [APT-K7P2QD](booking_ref)
+- intent: select_slot
+  examples: |
+    - number [2](slot_id) please
+- intent: inform
+  examples: |
+    - about [3 days](duration)
+    - since last [week](duration)
+    - id say a [6](severity)
+- intent: out_of_scope
+  examples: |
+    - whats the weather tomorrow
+    - can you order me a taxi
+    - how much is parking at the hospital
+- intent: stop
+  examples: |
+    - lets just leave it there
+    - i want to stop this

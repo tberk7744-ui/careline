@@ -1,0 +1,23 @@
+version: "3.1"
+# RedFlagGuard YANLIŞ ALARM seti (Claude yazdı, 2026-11-27, v3'ten önce donduruldu).
+# Acil OLMAYAN ama "blood/bleed/stop/breath/chest" gibi sözcükler içeren cümleler.
+nlu:
+- intent: report_symptom
+  examples: |
+    - my gums bleed a bit when I brush
+    - I had a small nosebleed but it stopped
+    - my cough won't stop at night
+    - this headache just won't go away
+    - I get a bit out of breath on the stairs since my cold
+    - I have a runny nose that won't stop
+- intent: book_appointment
+  examples: |
+    - I need a blood test appointment
+    - can I book a blood pressure check
+- intent: ask_privacy
+  examples: |
+    - will my blood results be shared with anyone
+- intent: stop
+  examples: |
+    - ok stop now
+    - please stop asking me questions

@@ -31,6 +31,20 @@ rules:
   - intent: out_of_scope
   - action: utter_out_of_scope
 
+- rule: safety net (urgency question)
+  steps:
+  - intent: seek_care
+  - action: utter_safety_net
+
+- rule: safety net during triage
+  condition:
+  - active_loop: triage_form
+  steps:
+  - intent: seek_care
+  - action: utter_safety_net
+  - action: triage_form
+  - active_loop: triage_form
+
 - rule: low NLU confidence
   steps:
   - intent: nlu_fallback
